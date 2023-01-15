@@ -161,6 +161,37 @@ window.addEventListener("scroll", scrollReveal);
 scrollReveal();
 
 
+// custom cursor 
 
+const cursor = document.querySelector("[data-cursor]");
+const anchorElements = document.querySelectorAll("a");
+const buttons = document.querySelectorAll("button");
 
+document.body.addEventListener("mousemove", function(event) {
+    setTimeout(function() {
+        cursor.style.top = `${event.clientY}px`;
+        cursor.style.left = `${event.clientX}px`;
+    }, 100);
+});
 
+const hoverActive = function() {
+    cursor.classList.add("hovered");
+}
+
+const hoverDeactive = function() {
+    cursor.classList.remove("hovered");
+}
+
+addEventOnElements(anchorElements, "mouseover", hoverActive);
+addEventOnElements(anchorElements, "mouseout", hoverDeactive);
+
+addEventOnElements(buttons, "mouseover", hoverActive);
+addEventOnElements(buttons, "mouseout", hoverDeactive);
+
+document.body.addEventListener("mouseout", function() {
+    cursor.classList.add("disabled");
+});
+
+document.body.addEventListener("mouseover", function() {
+    cursor.classList.remove("disabled");
+});
